@@ -1,4 +1,4 @@
-# WHITE-Net : White Matter HyperIntensities Tissue Extraction using deep learning Network
+# WHITE-Net : White matter HyperIntensities Tissue Extraction using deep learning Network
 
 ## WMH Segmentation tool using 3D ResUnet architecture
 
