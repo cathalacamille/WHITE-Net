@@ -28,7 +28,6 @@ def test(flair_directory, t1w_directory=None):
             print(f"Processing {str(os.path.basename(data_FLAIR[i]))}")
             aff=nib.load(data_FLAIR[i])
             im=np.array((aff.get_fdata()))
-            im_=im
             or_flair=nib.orientations.aff2axcodes(aff.affine)
             if desired_orientation!= or_flair:
                 current_ornt = nib.orientations.axcodes2ornt(or_flair)
@@ -62,7 +61,7 @@ def test(flair_directory, t1w_directory=None):
                 inverse_transform = nib.orientations.ornt_transform(desired_ornt, current_ornt)
                 wm_pred = (nib.orientations.apply_orientation(wm_pred, inverse_transform)>0.5).astype(float)
                 wmh_pred = (nib.orientations.apply_orientation(wmh_pred, inverse_transform)>0.5).astype(float)
-
+                
             nifti_wm = nib.Nifti1Image(wm_pred,affine=aff.affine)  
             nifti_wmh = nib.Nifti1Image(wmh_pred,affine=aff.affine)
             # Save the NIfTI image to a file
@@ -89,7 +88,8 @@ def test(flair_directory, t1w_directory=None):
                 # Apply the transformation to the image data
                 im = nib.orientations.apply_orientation(im, transform)
                 t1 = nib.orientations.apply_orientation(t1, transform)
-
+            im_shape = im.shape
+            
             mri_skullstripped=(im-np.min(im))/(np.max(im)-np.min(im))
             t1_skullstripped=(t1-np.min(t1))/(np.max(t1)-np.min(t1))
             mri_preprocessed, t1_preprocessed,ind_crop = crop_image(mri_skullstripped, t1_skullstripped)

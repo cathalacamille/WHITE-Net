@@ -26,7 +26,9 @@ pip install .
 
 Ensure your data is preprocessed with skull stripping before using YourProjectName. 
 You can use tools like FSL's BET or SPM unified segmentation (keeping tissue probability maps c1 c2 and c3 of the GM, WM and cerebro-spinal
-fluid (CSF)) to perform this step on your FLAIR and optional T1w images. 
+fluid (CSF)) to perform this step on your FLAIR and optional T1w images.
+
+Data should be in nifti format.
 
 ## USAGE 
 
@@ -52,6 +54,13 @@ from WHITE-Net import apply_whitenet
 apply_whitenet(flair_directory="/path/to/flair", t1w_directory="/path/to/t1w")
 ```
 
+### Outputs
+
+If only FLAIR is provided as input, the ouput masks will be located in the FLAIR directory with the following names :
+whitenet_FLAIR_WM_[flair_name] for WM mask and whitenet_FLAIR_WMH_[flair_name] for WMH mask
+
+If FLAIR and T1-weighted are provided as inputs, the ouput masks will be located in the FLAIR directory with the following names :
+whitenet_FLAIR+T1w_WM_[flair_name] for WM mask and whitenet_FLAIR+T1w_WMH_[flair_name] for WMH mask
 ## DEPENDENCIES
 
 The tool requires the following Python packages:
