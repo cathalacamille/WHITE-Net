@@ -13,7 +13,7 @@ setup(name='WHITE-Net',
 	install_requires=required_packages,
     entry_points={
         'console_scripts': [
-            'apply_whitenet=WHITE_Net.WHITENet:main',  # This creates a command-line tool
+            'apply_whitenet=WHITE-Net.WHITENet:main',  # This creates a command-line tool
         ],
     },
     package_data={
