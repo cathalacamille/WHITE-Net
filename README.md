@@ -60,7 +60,7 @@ If only FLAIR is provided as input, the ouput masks will be located in the FLAIR
 whitenet_FLAIR_WM_[flair_name] for WM mask and whitenet_FLAIR_WMH_[flair_name] for WMH mask
 
 If FLAIR and T1-weighted are provided as inputs, the ouput masks will be located in the FLAIR directory with the following names :
-whitenet_FLAIR+T1w_WM_[flair_name] for WM mask and whitenet_FLAIR+T1w_WMH_[flair_name] for WMH mask
+whitenet_FLAIR_T1w_WM_[flair_name] for WM mask and whitenet_FLAIR_T1w_WMH_[flair_name] for WMH mask
 ## DEPENDENCIES
 
 The tool requires the following Python packages:

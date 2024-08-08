@@ -89,7 +89,7 @@ def test(flair_directory, t1w_directory=None):
                 im = nib.orientations.apply_orientation(im, transform)
                 t1 = nib.orientations.apply_orientation(t1, transform)
             im_shape = im.shape
-            
+
             mri_skullstripped=(im-np.min(im))/(np.max(im)-np.min(im))
             t1_skullstripped=(t1-np.min(t1))/(np.max(t1)-np.min(t1))
             mri_preprocessed, t1_preprocessed,ind_crop = crop_image(mri_skullstripped, t1_skullstripped)
@@ -124,8 +124,8 @@ def test(flair_directory, t1w_directory=None):
             nifti_wmh = nib.Nifti1Image(wmh_pred,affine=aff.affine)
             # Save the NIfTI image to a file
             name= str(os.path.basename(data_FLAIR[i]))
-            nib.save(nifti_wm, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_FLAIR+T1w_WM_'+name)
-            nib.save(nifti_wmh, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_FLAIR+T1w_WMH_'+name)
+            nib.save(nifti_wm, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_FLAIR_T1w_WM_'+name)
+            nib.save(nifti_wmh, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_FLAIR_T1w_WMH_'+name)
             print(f"WMH and WM masks saved in {str(os.path.dirname(data_FLAIR[i]))}")
             
     
