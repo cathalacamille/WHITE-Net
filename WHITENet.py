@@ -4,6 +4,7 @@ import glob
 from skimage import io
 import nibabel as nib
 import torch
+import pkg_resources
 import argparse
 
 from utils import *
@@ -29,7 +30,8 @@ def test(flair_directory, t1w_directory=None):
     desired_orientation = ('P', 'S', 'R')    
     if  data_T1w == None : 
         unet = UNet(n_in=1,n_class=2)
-        unet.load_state_dict(torch.load('white_net_FLAIR.pt',map_location=torch.device("cpu"))) 
+        model_path = pkg_resources.resource_filename(__name__, 'white_net_FLAIR.pt')
+        unet.load_state_dict(torch.load(model_path,map_location=torch.device("cpu"))) 
         for i in range(len(data_FLAIR)):
             print(f"Processing {str(os.path.basename(data_FLAIR[i]))}")
             aff=nib.load(data_FLAIR[i])
@@ -80,7 +82,8 @@ def test(flair_directory, t1w_directory=None):
 
     else:
         unet = UNet(n_in=2,n_class=2)
-        unet.load_state_dict(torch.load('white_net_FLAIR_T1w.pt',map_location=torch.device("cpu"))) 
+        model_path = pkg_resources.resource_filename(__name__, 'white_net_FLAIR_T1w.pt')
+        unet.load_state_dict(torch.load(model_path,map_location=torch.device("cpu"))) 
         for i in range(len(data_FLAIR)):
             print(f"Processing {str(os.path.basename(data_FLAIR[i]))}")
             aff=nib.load(data_FLAIR[i])
