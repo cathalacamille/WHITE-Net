@@ -4,7 +4,7 @@ from setuptools import setup,find_packages
 with open('requirements.txt', 'rt') as f:
     required_packages = [l.strip() for l in f.readlines()]
 
-setup(name='WHITE-Net',
+setup(name='WHITENet',
 	version='1.0.0',
 	description='White matter HyperIntensities Tissue Extraction using deep-learning Network',
 	author='Camille Cathala',
@@ -13,11 +13,11 @@ setup(name='WHITE-Net',
 	install_requires=required_packages,
     entry_points={
         'console_scripts': [
-            'apply_whitenet=WHITE-Net.WHITENet:main',  # This creates a command-line tool
+            'apply_whitenet=WHITENet.WHITENet:main',  # This creates a command-line tool
         ],
     },
     package_data={
-        'WHITE-Net': ['white_net_FLAIR.pt','white_net_FLAIR_T1w.pt'],  # Include the file in the package
+        'WHITENet': ['white_net_FLAIR.pt','white_net_FLAIR_T1w.pt'],  # Include the file in the package
     },
 	packages=find_packages(),
 	include_package_data=True)
