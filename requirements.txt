@@ -1,6 +1,6 @@
 nibabel
 numpy
-glob
+glob2
 scikit-image
 torch
 argparse
