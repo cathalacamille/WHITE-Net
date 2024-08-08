@@ -2,7 +2,7 @@
 
 WMH Segmentation tool using 3D ResUnet architecture. 2 models are available : 1 using only FLAIR contrast and 1 using FLAIR+T1-weighted as input.
 
-### INSTALLATION
+## INSTALLATION
 
 You can install the package via `pip`:
 
@@ -22,13 +22,13 @@ pip install -r requirements.txt
 pip install .
 ```
 
-### DATA PREPARATION 
+## DATA PREPARATION 
 
 Ensure your data is preprocessed with skull stripping before using YourProjectName. 
 You can use tools like FSL's BET or SPM unified segmentation (keeping tissue probability maps c1 c2 and c3 of the GM, WM and cerebro-spinal
 fluid (CSF)) to perform this step on your FLAIR and optional T1w images. 
 
-### USAGE 
+## USAGE 
 
 After installation, you can use the tool from the command line or within a Python script. Below are examples of how to use it.
 
@@ -52,7 +52,7 @@ from WHITE-Net import apply_whitenet
 apply_whitenet(flair_directory="/path/to/flair", t1w_directory="/path/to/t1w")
 ```
 
-### DEPENDENCIES
+## DEPENDENCIES
 
 The tool requires the following Python packages:
 
