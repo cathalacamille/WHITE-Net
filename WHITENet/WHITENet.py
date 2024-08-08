@@ -19,7 +19,6 @@ def test(flair_directory, t1w_directory=None):
         data_T1w = sorted(glob.glob(t1w_directory))
     else : 
         data_T1w = None 
-    data_T1w = None     
     desired_orientation = ('P', 'S', 'R')    
     if  data_T1w == None : 
         unet = UNet(n_in=1,n_class=2)
@@ -68,8 +67,8 @@ def test(flair_directory, t1w_directory=None):
             nifti_wmh = nib.Nifti1Image(wmh_pred,affine=aff.affine)
             # Save the NIfTI image to a file
             name= str(os.path.basename(data_FLAIR[i]))
-            nib.save(nifti_wm, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_WM_'+name)
-            nib.save(nifti_wmh, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_WMH_'+name)
+            nib.save(nifti_wm, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_FLAIR_WM_'+name)
+            nib.save(nifti_wmh, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_FLAIR_WMH_'+name)
             print(f"WMH and WM masks saved in {str(os.path.dirname(data_FLAIR[i]))}")
 
 
