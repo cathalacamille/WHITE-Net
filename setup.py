@@ -16,6 +16,9 @@ setup(name='WHITE-Net',
             'apply_whitenet=WHITE_Net.WHITENet:main',  # This creates a command-line tool
         ],
     },
+    package_data={
+        'WHITE-Net': ['white_net_FLAIR.pt','white_net_FLAIR_T1w.pt'],  # Include the file in the package
+    },
 	packages=find_packages(),
 	include_package_data=True)
 
