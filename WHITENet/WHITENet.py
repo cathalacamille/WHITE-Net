@@ -80,7 +80,7 @@ def test(flair_directory, t1w_directory=None):
             print(f"Processing {str(os.path.basename(data_FLAIR[i]))}")
             aff=nib.load(data_FLAIR[i])
             im=np.array(aff.get_fdata())
-            t1=np.array(nib.load(data_t1[i]).get_fdata())
+            t1=np.array(nib.load(data_T1w[i]).get_fdata())
             or_flair=nib.orientations.aff2axcodes(aff.affine)
             if desired_orientation!= or_flair:
                 current_ornt = nib.orientations.axcodes2ornt(or_flair)
