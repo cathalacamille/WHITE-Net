@@ -11,7 +11,8 @@ import os
 from .utils import *
 
 def test(flair_directory, t1w_directory=None):
-
+    
+    flair_directory = os.path.abspath(flair_directory)
     print(f"Processing FLAIR images in: {flair_directory}")
     
     data_FLAIR = sorted(glob.glob(flair_directory))
