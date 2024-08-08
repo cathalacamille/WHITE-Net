@@ -6,19 +6,22 @@ import nibabel as nib
 import torch
 import pkg_resources
 import argparse
+import os 
 
-from utils import *
+from .utils import *
 
 def test(flair_directory, t1w_directory=None):
-    if not os.path.isdir(flair_directory):
-        raise ValueError(f"FLAIR directory does not exist: {flair_directory}")
+    flair_directory = os.path.abspath(flair_directory)
+    #if not os.path.isdir(flair_directory):
+    #    raise ValueError(f"FLAIR directory does not exist: {flair_directory}")
     
     print(f"Processing FLAIR images in: {flair_directory}")
     
-    if t1w_directory:
-        if not os.path.isdir(t1w_directory):
-            raise ValueError(f"T1w directory does not exist: {t1w_directory}")
-        print(f"Processing T1w images in: {t1w_directory}")
+    #if t1w_directory:
+    #    t1w_directory = os.path.abspath(t1w_directory)
+    #    if not os.path.isdir(t1w_directory):
+   #         raise ValueError(f"T1w directory does not exist: {t1w_directory}")
+    #    print(f"Processing T1w images in: {t1w_directory}")
     
     
     data_FLAIR = sorted(glob.glob(flair_directory))
@@ -75,8 +78,8 @@ def test(flair_directory, t1w_directory=None):
             nifti_wmh = nib.Nifti1Image(wmh_pred,affine=aff.affine)
             # Save the NIfTI image to a file
             name= str(os.path.basename(data_FLAIR[i]))
-            nib.save(nifti_wm, str(os.path.dirname(data_FLAIR[i]))+'/resunet_WM_'+name)
-            nib.save(nifti_wmh, str(os.path.dirname(data_FLAIR[i]))+'/resunet_WMH_'+name)
+            nib.save(nifti_wm, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_WM_'+name)
+            nib.save(nifti_wmh, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_WMH_'+name)
             print(f"WMH and WM masks saved in {str(os.path.dirname(data_FLAIR[i]))}")
 
 
@@ -132,8 +135,8 @@ def test(flair_directory, t1w_directory=None):
             nifti_wmh = nib.Nifti1Image(wmh_pred,affine=aff.affine)
             # Save the NIfTI image to a file
             name= str(os.path.basename(data_FLAIR[i]))
-            nib.save(nifti_wm, str(os.path.dirname(data_FLAIR[i]))+'/resunet_WM_'+name)
-            nib.save(nifti_wmh, str(os.path.dirname(data_FLAIR[i]))+'/resunet_WMH_'+name)
+            nib.save(nifti_wm, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_WM_'+name)
+            nib.save(nifti_wmh, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_WMH_'+name)
             print(f"WMH and WM masks saved in {str(os.path.dirname(data_FLAIR[i]))}")
             
     
