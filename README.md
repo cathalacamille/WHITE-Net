@@ -24,7 +24,7 @@ pip install .
 
 ## DATA PREPARATION 
 
-Ensure your data is preprocessed with skull stripping before using YourProjectName. 
+Ensure your data is preprocessed with skull stripping before using WHITE-Net. 
 You can use tools like FSL's BET or SPM unified segmentation (keeping tissue probability maps c1 c2 and c3 of the GM, WM and cerebro-spinal
 fluid (CSF)).
 
