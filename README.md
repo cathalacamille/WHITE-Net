@@ -67,11 +67,11 @@ The tool requires the following Python packages:
 
 * nibabel
 * numpy
-* glob
+* glob2
 * scikit-image
 * torch
 * argparse
-* math
+* python-math
 * scipy
 
 These dependencies will be installed automatically when using the installation methods described above.
