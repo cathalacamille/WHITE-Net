@@ -17,7 +17,7 @@ Alternatively, you can clone the repository and install the package manually:
 
 ```
 git clone https://github.com/cathalacamille/WHITE-Net.git
-cd yourrepository
+cd WHITE-Net
 pip install -r requirements.txt
 pip install .
 ```
