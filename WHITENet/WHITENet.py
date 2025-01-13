@@ -12,20 +12,20 @@ from .utils import *
 
 def test(flair_directory, t1w_directory=None):
     
-    print(f"Processing FLAIR images in: {flair_directory}")
     if os.path.isfile(flair_directory):
         # If it's a file and ends with .nii or .nii.gz, return it as a list
         if flair_directory.endswith('.nii') or flair_directory.endswith('.nii.gz'):
-            return [flair_directory]
+            data_FLAIR = [flair_directory]
         else:
             raise ValueError(f"The file {flair_directory} is not a .nii or .nii.gz file.")
     elif os.path.isdir(flair_directory):
+        print(f"Processing FLAIR images in: {flair_directory}")
         data_FLAIR = sorted(glob.glob(f'{flair_directory}/*.nii') + glob.glob(f'{flair_directory}/*.nii.gz'))
     if t1w_directory:
         if os.path.isfile(t1w_directory):
         # If it's a file and ends with .nii or .nii.gz, return it as a list
             if t1w_directory.endswith('.nii') or t1w_directory.endswith('.nii.gz'):
-                return [t1w_directory]
+                data_T1w = [t1w_directory]
             else:
                 raise ValueError(f"The file {t1w_directory} is not a .nii or .nii.gz file.")
         elif os.path.isdir(t1w_directory):
