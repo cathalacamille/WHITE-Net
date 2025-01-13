@@ -15,9 +15,10 @@ def test(flair_directory, t1w_directory=None):
     flair_directory = os.path.abspath(flair_directory)
     print(f"Processing FLAIR images in: {flair_directory}")
     
-    data_FLAIR = sorted(glob.glob(flair_directory))
+    data_FLAIR = sorted(glob.glob(f'{flair_directory}/*.nii') + glob.glob(f'{flair_directory}/*.nii.gz'))
     if t1w_directory:
-        data_T1w = sorted(glob.glob(t1w_directory))
+        t1w_directory = os.path.abspath(t1w_directory)
+        data_T1w = sorted(glob.glob(f'{t1w_directory}/*.nii') + glob.glob(f'{t1w_directory}/*.nii.gz'))
     else : 
         data_T1w = None 
     desired_orientation = ('P', 'S', 'R')    
