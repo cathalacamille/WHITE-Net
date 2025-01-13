@@ -12,7 +12,6 @@ from .utils import *
 
 def test(flair_directory, t1w_directory=None):
     
-    flair_directory = os.path.abspath(flair_directory)
     print(f"Processing FLAIR images in: {flair_directory}")
     if os.path.isfile(flair_directory):
         # If it's a file and ends with .nii or .nii.gz, return it as a list
@@ -23,7 +22,6 @@ def test(flair_directory, t1w_directory=None):
     elif os.path.isdir(flair_directory):
         data_FLAIR = sorted(glob.glob(f'{flair_directory}/*.nii') + glob.glob(f'{flair_directory}/*.nii.gz'))
     if t1w_directory:
-        t1w_directory = os.path.abspath(t1w_directory)
         if os.path.isfile(t1w_directory):
         # If it's a file and ends with .nii or .nii.gz, return it as a list
             if t1w_directory.endswith('.nii') or t1w_directory.endswith('.nii.gz'):
