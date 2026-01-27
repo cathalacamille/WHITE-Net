@@ -34,7 +34,7 @@ def test(flair_directory, t1w_directory=None):
         data_T1w = None 
     desired_orientation = ('P', 'S', 'R')    
     if  data_T1w == None : 
-        unet = UNet(n_in=1,n_class=2)
+        unet = UNet(n_in=1,n_class=1)
         model_path = pkg_resources.resource_filename(__name__, 'white_net_FLAIR.pt')
         unet.load_state_dict(torch.load(model_path,map_location=torch.device("cpu"))) 
         for i in range(len(data_FLAIR)):
@@ -62,26 +62,20 @@ def test(flair_directory, t1w_directory=None):
             output=(unet(mri.float())>0.5).int()
 
             pred0= unpad(output[0,0,:,:,:],original_shape)
-            pred1= unpad(output[0,1,:,:,:],original_shape)
 
             if inverse_factors is not None:
                 pred0 = (zoom(np.array(pred0),inverse_factors,order=3)>0.5).astype(int)
-                pred1 = (zoom(np.array(pred1),inverse_factors,order=3)>0.5).astype(int)
 
-            wm_pred = uncrop_image(pred0 ,ind_crop,im_shape)
-            wmh_pred = uncrop_image(pred1 ,ind_crop,im_shape)
+            wmh_pred = uncrop_image(pred0 ,ind_crop,im_shape)
             if desired_orientation!= or_flair:
                 inverse_transform = nib.orientations.ornt_transform(desired_ornt, current_ornt)
-                wm_pred = (nib.orientations.apply_orientation(wm_pred, inverse_transform)>0.5).astype(float)
                 wmh_pred = (nib.orientations.apply_orientation(wmh_pred, inverse_transform)>0.5).astype(float)
                 
-            nifti_wm = nib.Nifti1Image(wm_pred,affine=aff.affine)  
             nifti_wmh = nib.Nifti1Image(wmh_pred,affine=aff.affine)
             # Save the NIfTI image to a file
             name= str(os.path.basename(data_FLAIR[i]))
-            nib.save(nifti_wm, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_FLAIR_WM_'+name)
             nib.save(nifti_wmh, str(os.path.dirname(data_FLAIR[i]))+'/whitenet_FLAIR_WMH_'+name)
-            print(f"WMH and WM masks saved in {str(os.path.dirname(data_FLAIR[i]))}")
+            print(f"WMH mask saved in {str(os.path.dirname(data_FLAIR[i]))}")
 
 
     else:
