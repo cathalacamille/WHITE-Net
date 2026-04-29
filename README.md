@@ -1,6 +1,6 @@
 # WHITE-Net : White matter HyperIntensities Tissue Extraction using deep learning Network
 
-WMH Segmentation tool using 3D ResUnet architecture. 2 models are available : 1 using only FLAIR contrast and 1 using FLAIR+T1-weighted as input.
+WMH Segmentation tool using 3D ResUnet architecture. 
 
 ## INSTALLATION
 
@@ -38,11 +38,10 @@ After installation, you can use the tool from the command line or within a Pytho
 
 To run the tool, use the following command:
 ```
-apply_whitenet /path/to/flair [/path/to/t1w] 
+apply_whitenet /path/to/flair 
 ```
 
 * flair_directory: The path to the directory containing skull-stripped FLAIR images (required).
-* t1w_directory: The path to the directory containing skull-stripped T1w images  (optional).
 
 ### Using in Python Scripts
 You can also import the package and use its functions directly in your Python code:
@@ -51,16 +50,15 @@ You can also import the package and use its functions directly in your Python co
 from WHITE-Net import apply_whitenet
 
 # Example usage within a Python script
-apply_whitenet(flair_directory="/path/to/flair", t1w_directory="/path/to/t1w")
+apply_whitenet(flair_directory="/path/to/flair")
 ```
 
 ### Outputs
 
-If only FLAIR is provided as input, the ouput masks will be located in the FLAIR directory with the following names :
-whitenet_FLAIR_WM_[flair_name] for WM mask and whitenet_FLAIR_WMH_[flair_name] for WMH mask
+The ouput WMH mask will be located in the FLAIR directory with the following name :
+whitenet_FLAIR_WMH_[flair_name] 
 
-If FLAIR and T1-weighted are provided as inputs, the ouput masks will be located in the FLAIR directory with the following names :
-whitenet_FLAIR_T1w_WM_[flair_name] for WM mask and whitenet_FLAIR_T1w_WMH_[flair_name] for WMH mask
+
 ## DEPENDENCIES
 
 The tool requires the following Python packages:
