@@ -59,9 +59,10 @@ def test(flair_directory, t1w_directory=None):
                 inverse_factors= None
             original_shape=mri_preprocessed.shape
             mri=torch.tensor(zero_pad(mri_preprocessed,(192,176,160))).unsqueeze(0).unsqueeze(0)
-            output=(unet(mri.float())>0.5).int()
-
-            pred0= unpad(output[0,0,:,:,:],original_shape)
+            prob_map=unet(mri.float()).squeeze()
+            output = adaptive_threshold_lesion_load(prob_map,thresh=0.5)
+            output = torch.tensor(output)
+            pred0= unpad(output,original_shape)
 
             if inverse_factors is not None:
                 pred0 = (zoom(np.array(pred0),inverse_factors,order=3)>0.5).astype(int)
