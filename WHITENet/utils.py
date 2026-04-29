@@ -163,3 +163,55 @@ class UNet(nn.Module):
 
         return out
 
+def adaptive_threshold_lesion_load(prob_map, thresh=0.5):
+    """
+    Compute an adaptive threshold depending on total lesion load and return the corresponding mask.
+    
+    Steps:
+    1. Threshold the prob_map at `thresh` to estimate lesion voxels.
+    2. Compute the total lesion load (#voxels above threshold).
+    3. Compute an adaptive threshold that decreases with lesion load.
+    4. Apply the adaptive threshold to produce the final binary mask.
+    
+    Parameters:
+        prob_map (np.ndarray or torch.Tensor): model probability map (3D)
+        thresh (float): base threshold for estimating lesion load (default=0.5)
+    
+    Returns:
+        pred_mask (torch.Tensor): binary lesion mask after adaptive thresholding
+        adaptive_thr (float): adaptive threshold used
+        lesion_load (int): total number of voxels above the base threshold
+    """
+
+    # Convert torch tensor → numpy for computation
+    was_tensor = isinstance(prob_map, torch.Tensor)
+    if was_tensor:
+        prob_map_np = prob_map.detach().cpu().numpy().squeeze()
+    else:
+        prob_map_np = np.squeeze(prob_map)
+
+    # --- Step 1: Estimate lesion load ---
+    lesion_mask = prob_map_np > thresh
+    lesion_load = int(lesion_mask.sum())
+
+    # --- Step 2: Compute adaptive threshold ---
+    # More lesions → lower threshold (but clipped between 0.5 and 0.8)
+    if lesion_load<300:
+        adaptive_thr = 0.8
+    elif lesion_load>300 and lesion_load <5000:
+        adaptive_thr = 0.7
+    else : 
+        adaptive_thr = 0.5
+        
+    # --- Step 3: Apply adaptive threshold ---
+    labeled = measure.label(lesion_mask, connectivity=1)
+    props = measure.regionprops(labeled, intensity_image=prob_map)
+
+    mask = np.zeros_like(prob_map, dtype=np.uint8)
+    for p in props:
+        if p.area < 5:
+            continue
+        mean_p = p.intensity_mean
+        if mean_p >= adaptive_thr:
+            mask[labeled == p.label] = 1
+    return mask
